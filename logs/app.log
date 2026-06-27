@@ -1,0 +1,125 @@
+2026-06-26 22:45:20,140 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-26 22:51:12,557 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-26 22:51:12,628 - INFO - SELECT DATABASE()
+2026-06-26 22:51:12,629 - INFO - [raw sql] {}
+2026-06-26 22:51:12,631 - INFO - SELECT @@sql_mode
+2026-06-26 22:51:12,633 - INFO - [raw sql] {}
+2026-06-26 22:51:12,634 - INFO - SELECT @@lower_case_table_names
+2026-06-26 22:51:12,634 - INFO - [raw sql] {}
+2026-06-26 22:51:12,635 - INFO - BEGIN (implicit)
+2026-06-26 22:51:12,638 - INFO - INSERT INTO resume_records (filename, resume_text, resume_json, jd_text, match_result) VALUES (%(filename)s, %(resume_text)s, %(resume_json)s, %(jd_text)s, %(match_result)s)
+2026-06-26 22:51:12,640 - INFO - [generated in 0.00178s] {'filename': 'manual_input', 'resume_text': 'Python开发工程师，熟悉FastAPI、MySQL、LangChain，有后端项目经验', 'resume_json': '{}', 'jd_text': '招聘Python后端开发： 要求： - Python - FastAPI - MySQL - Redis - Docker', 'match_result': '{"match_score": 75, "matched_skills": ["Python", "FastAPI", "MySQL"], "missing_skills": ["Redis", "Docker"], "reason": "候选人具备核心语言框架能力（Python/FastAPI） ... (58 characters truncated) ... uggestions": ["优先学习Redis基础操作与缓存策略（1-2周可掌握基础）", "完成Docker官方入门教程+实战部署一个FastAPI项目（建议2周）", "建议在现有项目中尝试集成Redis缓存功能（实战最佳）", "关注云原生技术趋势，后续可补充Kubernetes知识"]}'}
+2026-06-26 22:51:12,647 - INFO - ROLLBACK
+2026-06-26 22:54:10,543 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-26 22:54:10,605 - INFO - SELECT DATABASE()
+2026-06-26 22:54:10,606 - INFO - [raw sql] {}
+2026-06-26 22:54:10,607 - INFO - SELECT @@sql_mode
+2026-06-26 22:54:10,607 - INFO - [raw sql] {}
+2026-06-26 22:54:10,608 - INFO - SELECT @@lower_case_table_names
+2026-06-26 22:54:10,608 - INFO - [raw sql] {}
+2026-06-26 22:54:10,610 - INFO - BEGIN (implicit)
+2026-06-26 22:54:10,611 - INFO - INSERT INTO resume_records (filename, resume_text, resume_json, jd_text, match_result) VALUES (%(filename)s, %(resume_text)s, %(resume_json)s, %(jd_text)s, %(match_result)s)
+2026-06-26 22:54:10,612 - INFO - [generated in 0.00036s] {'filename': 'manual_input', 'resume_text': 'Python开发工程师，熟悉FastAPI、MySQL、LangChain，有后端项目经验', 'resume_json': '{}', 'jd_text': '招聘Python后端开发： 要求： - Python - FastAPI - MySQL - Redis - Docker', 'match_result': '{"match_score": 75, "matched_skills": ["Python", "FastAPI", "MySQL"], "missing_skills": ["Redis", "Docker"], "reason": "候选人具备核心的Python后端开发能力，与JD要求的Fa ... (120 characters truncated) ... 结构和缓存策略", "推荐通过Docker官方教程完成至少一个Python项目的容器化部署实战", "可补充学习CI/CD基础（如GitHub Actions）以完善DevOps能力链条", "现有LangChain经验可延伸学习分布式任务队列（Celery+RQ），与Redis技能形成协同"]}'}
+2026-06-26 22:54:10,616 - INFO - COMMIT
+2026-06-26 23:06:46,923 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:06:46,923 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:06:46,923 - INFO - Loading faiss.
+2026-06-26 23:06:49,214 - INFO - Successfully loaded faiss.
+2026-06-26 23:06:49,449 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:09:38,558 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:09:38,558 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:09:38,558 - INFO - Loading faiss.
+2026-06-26 23:09:38,570 - INFO - Successfully loaded faiss.
+2026-06-26 23:09:38,778 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:12:32,291 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:12:32,291 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:12:32,291 - INFO - Loading faiss.
+2026-06-26 23:12:32,301 - INFO - Successfully loaded faiss.
+2026-06-26 23:12:32,519 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:13:07,006 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:13:07,006 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:13:07,007 - INFO - Loading faiss.
+2026-06-26 23:13:07,021 - INFO - Successfully loaded faiss.
+2026-06-26 23:13:07,248 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:16:30,766 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:16:30,766 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:16:30,766 - INFO - Loading faiss.
+2026-06-26 23:16:30,779 - INFO - Successfully loaded faiss.
+2026-06-26 23:16:30,991 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:19:19,795 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:19:19,795 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:19:19,796 - INFO - Loading faiss.
+2026-06-26 23:19:19,808 - INFO - Successfully loaded faiss.
+2026-06-26 23:19:20,086 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:23:05,819 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:23:05,819 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:23:05,819 - INFO - Loading faiss.
+2026-06-26 23:23:05,830 - INFO - Successfully loaded faiss.
+2026-06-26 23:23:06,035 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:26:25,706 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:26:25,706 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:26:25,706 - INFO - Loading faiss.
+2026-06-26 23:26:25,719 - INFO - Successfully loaded faiss.
+2026-06-26 23:26:25,928 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:27:09,170 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:27:09,170 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:27:09,170 - INFO - Loading faiss.
+2026-06-26 23:27:09,181 - INFO - Successfully loaded faiss.
+2026-06-26 23:27:09,396 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:29:12,197 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:29:12,197 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:29:12,197 - INFO - Loading faiss.
+2026-06-26 23:29:12,209 - INFO - Successfully loaded faiss.
+2026-06-26 23:29:12,423 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:48:43,290 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:48:43,291 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:48:43,291 - INFO - Loading faiss.
+2026-06-26 23:48:43,307 - INFO - Successfully loaded faiss.
+2026-06-26 23:48:43,593 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:49:14,208 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:49:14,208 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:49:14,208 - INFO - Loading faiss.
+2026-06-26 23:49:14,221 - INFO - Successfully loaded faiss.
+2026-06-26 23:49:14,436 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 400 Bad Request"
+2026-06-26 23:56:33,835 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:56:33,835 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:56:33,835 - INFO - Loading faiss.
+2026-06-26 23:56:33,849 - INFO - Successfully loaded faiss.
+2026-06-26 23:56:34,173 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 200 OK"
+2026-06-26 23:56:36,607 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:56:36,607 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:56:36,607 - INFO - Loading faiss.
+2026-06-26 23:56:36,626 - INFO - Successfully loaded faiss.
+2026-06-26 23:56:36,982 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 200 OK"
+2026-06-26 23:57:02,773 - INFO - Loading faiss with AVX2 support.
+2026-06-26 23:57:02,773 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-26 23:57:02,773 - INFO - Loading faiss.
+2026-06-26 23:57:02,798 - INFO - Successfully loaded faiss.
+2026-06-26 23:57:03,154 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 200 OK"
+2026-06-27 00:03:42,931 - INFO - Loading faiss with AVX2 support.
+2026-06-27 00:03:42,931 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-27 00:03:42,931 - INFO - Loading faiss.
+2026-06-27 00:03:42,946 - INFO - Successfully loaded faiss.
+2026-06-27 00:03:43,264 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 200 OK"
+2026-06-27 00:03:45,708 - INFO - Loading faiss with AVX2 support.
+2026-06-27 00:03:45,708 - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-06-27 00:03:45,708 - INFO - Loading faiss.
+2026-06-27 00:03:45,727 - INFO - Successfully loaded faiss.
+2026-06-27 00:03:46,096 - INFO - HTTP Request: POST https://api.siliconflow.cn/v1/embeddings "HTTP/1.1 200 OK"
