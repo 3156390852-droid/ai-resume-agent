@@ -1,0 +1,46 @@
+# ============================================
+# AI Resume Agent — Docker Compose 编排
+# 服务：app（FastAPI）+ mysql（数据库）
+# ============================================
+
+version: "3.8"
+
+services:
+  # ── MySQL 数据库 ──
+  mysql:
+    image: mysql:8.0
+    container_name: resume-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-resume123}
+      MYSQL_DATABASE: ai_resume
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── FastAPI 应用 ──
+  app:
+    build: .
+    container_name: resume-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+
+volumes:
+  mysql_data:

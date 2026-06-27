@@ -5,6 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.136-009688.svg)](https://fastapi.tiangolo.com/)
 [![LangChain](https://img.shields.io/badge/LangChain-1.3-1c3c3c.svg)](https://www.langchain.com/)
+[![Docker](https://img.shields.io/badge/Docker-✔-2496ED.svg)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
@@ -152,6 +153,50 @@ python run.py
 ```
 
 服务启动后访问：**http://localhost:8000**
+
+---
+
+## 🐳 Docker 部署（推荐）
+
+无需手动安装 Python 和 MySQL，一键启动全部服务。
+
+### 1. 准备环境变量
+
+```bash
+cp .env.example .env
+# 编辑 .env，填入你的 API Key
+```
+
+### 2. 构建并启动
+
+```bash
+docker-compose up -d
+```
+
+首次启动会自动：
+- 拉取 `python:3.11-slim` 基础镜像 + 安装中文字体
+- 拉取 `mysql:8.0` 镜像
+- `pip install` 所有依赖
+- 自动创建 `ai_resume` 数据库
+
+### 3. 初始化数据库表
+
+```bash
+docker exec -it resume-app python create_db.py
+```
+
+### 4. 访问服务
+
+打开浏览器访问：**http://localhost:8000**
+
+### 常用命令
+
+| 命令 | 说明 |
+|------|------|
+| `docker-compose up -d` | 后台启动 |
+| `docker-compose down` | 停止服务 |
+| `docker-compose logs -f app` | 查看应用日志 |
+| `docker-compose build --no-cache` | 重新构建镜像 |
 
 ---
 

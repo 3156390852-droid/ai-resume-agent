@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+venv/
+env/
+.venv/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data & Logs (体积大，运行时挂载)
+data/
+logs/
+*.log
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Environment (通过 docker-compose env_file 注入)
+# .env 需要保留以便 docker-compose 读取
