@@ -42,16 +42,15 @@ def parse_resume(file_path: str) -> str:
 
 from app.core.logger import logger
 
+# 重新定义 parse_resume，加入日志
+_original_parse_resume = parse_resume
+
 def parse_resume(file_path: str) -> str:
     try:
         logger.info(f"开始解析简历: {file_path}")
-
-        # 原解析逻辑
-        text = "..."
-
-        logger.info("简历解析成功")
+        text = _original_parse_resume(file_path)
+        logger.info(f"简历解析成功，提取 {len(text)} 字符")
         return text
-
     except Exception as e:
         logger.error(f"简历解析失败: {str(e)}")
         raise e
