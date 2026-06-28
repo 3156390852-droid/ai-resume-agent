@@ -17,8 +17,8 @@ def safe_json_loads(text: str):
     # 1️去掉 markdown
     text = text.replace("```json", "").replace("```", "")
 
-    # 2提取 JSON（最重要）
-    match = re.search(r"\{.*\}", text, re.DOTALL)
+    # 2️⃣ 提取 JSON（对象或数组）
+    match = re.search(r"\{.*\}", text, re.DOTALL) or re.search(r"\[.*\]", text, re.DOTALL)
 
     if not match:
         raise ValueError(f"No JSON found in: {text}")

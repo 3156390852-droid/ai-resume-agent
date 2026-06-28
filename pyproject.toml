@@ -1,0 +1,11 @@
+[project]
+name = "ai-resume-agent"
+version = "1.0.0"
+description = "AI 简历解析与岗位匹配系统"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = ["-v", "--tb=short"]

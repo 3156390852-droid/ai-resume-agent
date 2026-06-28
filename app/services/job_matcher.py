@@ -4,21 +4,18 @@
 结合 RAG 向量知识库进行简历与 JD 的语义匹配分析，
 输出匹配评分、技能对比、学习建议，以及 BOSS 直聘招呼语和投递策略。
 """
-
-import os
-from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
+from app.core.config import settings
+from app.core.logger import logger
+from app.core.exceptions import LLMServiceException
 from app.rag.vector_store import retrieve_context
 from app.models.match_schema import MatchResult
-from app.core.logger import logger
-
-load_dotenv()
 
 llm = ChatOpenAI(
-    model=os.getenv("MODEL_NAME"),
-    api_key=os.getenv("OPENAI_API_KEY"),
-    base_url=os.getenv("OPENAI_API_BASE"),
-    temperature=0
+    api_key=settings.OPENAI_API_KEY,
+    base_url=settings.OPENAI_API_BASE,
+    model=settings.MODEL_NAME.strip(),
+    temperature=0,
 )
 
 structured_llm = llm.with_structured_output(MatchResult)
@@ -35,7 +32,6 @@ def match_resume_and_job(resume: str, jd: str) -> MatchResult:
     Returns:
         MatchResult: 包含匹配评分、技能对比、学习建议、招呼语等
     """
-
     # RAG 检索相关知识
     context = retrieve_context(jd)
     context_text = "\n".join(f"· {item}" for item in context)
@@ -96,8 +92,8 @@ def match_resume_and_job(resume: str, jd: str) -> MatchResult:
     try:
         logger.info("开始岗位匹配分析...")
         result: MatchResult = structured_llm.invoke(prompt)
-        logger.info(f"匹配分析完成，评分: {result.match_score}")
+        logger.info("匹配分析完成，评分: %d", result.match_score)
         return result
     except Exception as e:
-        logger.error(f"匹配分析失败: {str(e)}")
-        raise e
+        logger.error("匹配分析失败: %s", str(e))
+        raise LLMServiceException(f"匹配分析失败: {str(e)}") from e

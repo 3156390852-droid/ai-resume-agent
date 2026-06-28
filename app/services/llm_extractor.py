@@ -1,23 +1,20 @@
 """
 LLM 简历结构化提取器
 
-使用 LangChain + DeepSeek-V3 从简历纯文本中提取结构化信息，
+使用 LangChain + ChatOpenAI 从简历纯文本中提取结构化信息，
 输出符合 ResumeInfo 模型的 JSON 数据。
 """
-
-import os
-from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
+from app.core.config import settings
 from app.core.logger import logger
+from app.core.exceptions import LLMServiceException
 from app.models.resume_schema import ResumeInfo
 
-load_dotenv(dotenv_path=".env")
-
 llm = ChatOpenAI(
-    api_key=os.getenv("OPENAI_API_KEY"),
-    base_url=os.getenv("OPENAI_API_BASE"),
-    model=os.getenv("MODEL_NAME").strip(),
-    temperature=0
+    api_key=settings.OPENAI_API_KEY,
+    base_url=settings.OPENAI_API_BASE,
+    model=settings.MODEL_NAME.strip(),
+    temperature=0,
 )
 
 structured_llm = llm.with_structured_output(ResumeInfo)
@@ -57,10 +54,10 @@ def extract_resume_info(text: str) -> ResumeInfo:
 """
 
     try:
-        logger.info("开始LLM简历结构化提取...")
+        logger.info("开始 LLM 简历结构化提取...")
         result = structured_llm.invoke(prompt)
-        logger.info(f"LLM结构化成功，提取到 {len(result.skills)} 项技能")
+        logger.info("LLM 结构化成功，提取到 %d 项技能", len(result.skills))
         return result
     except Exception as e:
-        logger.error(f"LLM调用失败: {str(e)}")
-        raise e
+        logger.error("LLM 调用失败: %s", str(e))
+        raise LLMServiceException(f"简历解析失败: {str(e)}") from e
