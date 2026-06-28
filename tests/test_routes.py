@@ -14,6 +14,14 @@ class TestRootEndpoint:
         assert resp.status_code == 200
         assert resp.json()["message"] == "AI Resume Agent Running"
 
+    def test_health_endpoint(self, client):
+        """GET /health 返回服务状态"""
+        resp = client.get("/health")
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["status"] == "ok"
+        assert "database" in data
+
 
 class TestUploadResume:
     """简历上传接口测试"""
@@ -32,9 +40,10 @@ class TestUploadResume:
         resp = client.post("/upload-resume")
         assert resp.status_code == 422
 
+    @patch("app.api.routes.save_record")
     @patch("app.api.routes.parse_resume")
     @patch("app.api.routes.extract_resume_info")
-    def test_upload_pdf_success(self, mock_extract, mock_parse, client):
+    def test_upload_pdf_success(self, mock_extract, mock_parse, mock_save, client):
         """上传 PDF 成功路径"""
         mock_parse.return_value = "模拟简历文本"
         mock_extract.return_value = MagicMock(
@@ -48,6 +57,7 @@ class TestUploadResume:
         assert resp.status_code == 200
         assert resp.json()["filename"] == "resume.pdf"
         assert "data" in resp.json()
+        mock_save.assert_called_once()
 
 
 class TestMatchEndpoint:
