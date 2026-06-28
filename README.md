@@ -6,6 +6,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.136-009688.svg)](https://fastapi.tiangolo.com/)
 [![LangChain](https://img.shields.io/badge/LangChain-1.3-1c3c3c.svg)](https://www.langchain.com/)
 [![Docker](https://img.shields.io/badge/Docker-✔-2496ED.svg)](https://www.docker.com/)
+[![Tests](https://img.shields.io/badge/Tests-27%20passed-success.svg)]()
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
@@ -59,34 +60,50 @@ AI Resume Agent 是一个智能简历分析系统，能够：
 ```
 resume-agent/
 ├── app/
+│   ├── __init__.py
 │   ├── api/
-│   │   └── routes.py            # API 路由定义
+│   │   ├── __init__.py
+│   │   └── routes.py            # API 路由定义（含文件校验 + 文本字段非空/长度校验）
 │   ├── core/
-│   │   ├── config.py            # 配置管理
-│   │   ├── database.py          # 数据库连接
-│   │   └── logger.py            # 日志模块
+│   │   ├── __init__.py
+│   │   ├── config.py            # Pydantic BaseSettings 配置管理（启动即校验必填字段）
+│   │   ├── database.py          # 数据库连接 + context manager 自动管理事务
+│   │   ├── exceptions.py        # 5 类业务异常（400/404/500/502 分状态码）
+│   │   └── logger.py            # 日志模块（文件 + 控制台双输出）
 │   ├── models/
+│   │   ├── __init__.py
 │   │   ├── resume_schema.py     # 简历结构化模型（含期望职位/城市/薪资/GitHub）
 │   │   ├── match_schema.py      # 匹配结果模型（含招呼语/面试建议/投递决策）
 │   │   └── resume_record.py     # 数据库 ORM 模型
 │   ├── rag/
+│   │   ├── __init__.py
 │   │   ├── knowledge_base.py    # 知识库（65条：AI技术栈 + 上海/苏州市场 + BOSS直聘策略）
-│   │   └── vector_store.py      # FAISS 向量存储与检索
+│   │   └── vector_store.py      # FAISS 向量存储与检索（懒加载单例）
 │   ├── services/
+│   │   ├── __init__.py
 │   │   ├── llm_extractor.py     # LLM 简历信息提取
 │   │   ├── job_matcher.py       # 岗位匹配 + 招呼语生成
-│   │   └── db_service.py        # 数据库 CRUD
+│   │   └── db_service.py        # 数据库 CRUD（context manager 管理会话）
 │   ├── utils/
-│   │   ├── parser.py            # PDF/Word 解析
-│   │   └── json_parser.py       # JSON 格式处理
-│   └── main.py                  # FastAPI 应用入口
+│   │   ├── __init__.py
+│   │   ├── parser.py            # PDF/Word 解析（装饰器模式日志）
+│   │   └── json_parser.py       # JSON 格式处理（支持对象 + 数组）
+│   └── main.py                  # FastAPI 应用入口（分层异常处理器）
+├── tests/                       # 自动化测试
+│   ├── __init__.py
+│   ├── conftest.py              # 共享 fixtures + TestClient
+│   ├── test_exceptions.py       # 异常层次结构测试
+│   ├── test_json_parser.py      # JSON 解析器测试
+│   ├── test_schemas.py          # Pydantic 模型校验测试
+│   └── test_routes.py           # API 集成测试（mock LLM/DB）
 ├── data/                        # 简历文件存储
 ├── logs/                        # 日志文件
-├── tests/                       # 测试用例
-├── requirements.txt             # 依赖列表
+├── requirements.txt             # 依赖列表（分层注释）
+├── pyproject.toml               # 项目配置 + pytest 配置
 ├── run.py                       # 启动脚本
 ├── create_db.py                 # 数据库初始化
-└── .env                         # 环境变量配置
+├── .env.example                 # 环境变量模板
+└── .gitignore
 ```
 
 ---
@@ -200,6 +217,28 @@ docker exec -it resume-app python create_db.py
 
 ---
 
+## 🧪 自动化测试
+
+项目包含 **27 条自动化测试**，覆盖三层：
+
+```bash
+# 运行全部测试
+python -m pytest tests/ -v
+```
+
+| 层级 | 文件 | 内容 |
+|------|------|------|
+| 单元测试 | `test_json_parser.py` | JSON 解析器：markdown/嵌套/数组/异常 |
+| 单元测试 | `test_exceptions.py` | 异常体系：继承关系/状态码/自定义消息 |
+| 模型测试 | `test_schemas.py` | Pydantic 模型：默认值/校验/序列化 |
+| 集成测试 | `test_routes.py` | API 端点：健康检查/上传校验/匹配校验 |
+
+```
+27 passed in 1.26s ✅
+```
+
+---
+
 ## 📡 API 接口
 
 ### 根路径
@@ -291,8 +330,11 @@ GET /history
 - 📚 **RAG 增强匹配** — 65 条行业知识覆盖 AI 技术栈 + 上海/苏州市场 + BOSS 直聘策略
 - 💬 **智能招呼语** — 针对岗位自动生成个性化 BOSS 直聘招呼语，突出匹配技能
 - 🎯 **投递决策支持** — 综合匹配度给出是否建议投递的判断，避免盲目海投
-- 🛡️ **全局异常处理** — 统一的异常拦截与日志记录
-- 📝 **工程化日志** — 关键步骤均有日志追踪，方便排查问题
+- 🛡️ **分层异常处理** — 5 类业务异常映射不同 HTTP 状态码，非 500 一刀切
+- 🔒 **启动校验** — Pydantic BaseSettings 启动即校验必填配置，缺 API Key 无法启动
+- 💉 **Context Manager** — 数据库会话自动 commit/rollback/close，杜绝连接泄漏
+- 📝 **工程化日志** — 文件 + 控制台双输出，Docker 内也可见
+- 🧪 **27 条自动化测试** — 覆盖单元 / 模型 / API 集成三层
 
 ---
 
